@@ -1,6 +1,6 @@
 # How to use
 
-1. この辺から時刻表をダウンロードしてきます
+1. あの辺から時刻表をダウンロードしてきます
 
 - この辺 → http://toshi-u.sakura.ne.jp/tt2tbl/et2tbl.html
 
