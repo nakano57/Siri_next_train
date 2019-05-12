@@ -1,7 +1,7 @@
 # coding: utf-8
 import datetime
 import time
-import clipboard  # Only Pythonista
+# import clipboard  # Only Pythonista
 
 
 class nexttrain:
@@ -188,11 +188,11 @@ if __name__ == "__main__":
     if delta > 3600:
         h = str(ntrain.hour)
         m = str(ntrain.minute)
-        text = '次の電車は'+h+'時'+m+'分'+trainfo+'です'
+        text = '次の電車は'+h+'時'+m+'分'+trainfo[:-1]+'ゆきです'
     elif delta > 60:
         text = '次の電車は'+str(int(delta/60))+'分' + \
-            str(int(delta % 60))+'秒後'+trainfo+'です'
+            str(int(delta % 60))+'秒後'+trainfo[:-1]+'ゆきです'
     else:
-        text = '次の電車は'+str(int(delta % 60))+'秒後'+trainfo+'です'
+        text = '次の電車は'+str(int(delta % 60))+'秒後'+trainfo[:-1]+'ゆきです'
     print(text)
-    clipboard.set(text)
+    # clipboard.set(text)
