@@ -1,7 +1,7 @@
 # coding: utf-8
 import datetime
 import time
-# import clipboard  # Only Pythonista
+import clipboard  # Only Pythonista
 
 
 class nexttrain:
@@ -166,9 +166,14 @@ class nexttrain:
         filelist = []
         filetemp = []
         for i in range(len(self.__file)):
-            for j in self.__file[i]:
-                temp = j[3:len(j) - 1]
+           
+            for j,list in enumerate(self.__file[i]):
+                if j < 5:
+                    temp = list[2:len(list) - 1]
+                else:
+                    temp = list[3:len(list) - 1]
                 filelist.append(temp.split())
+               
 
             filetemp.append(filelist)
             filelist = []
@@ -191,8 +196,8 @@ if __name__ == "__main__":
         text = '次の電車は'+h+'時'+m+'分'+trainfo[:-1]+'ゆきです'
     elif delta > 60:
         text = '次の電車は'+str(int(delta/60))+'分' + \
-            str(int(delta % 60))+'秒後'+trainfo[:-1]+'ゆきです'
+            str(int(delta % 60))+'秒後、'+trainfo[:-1]+'ゆきです'
     else:
-        text = '次の電車は'+str(int(delta % 60))+'秒後'+trainfo[:-1]+'ゆきです'
+        text = '次の電車は'+str(int(delta % 60))+'秒後、'+trainfo[:-1]+'ゆきです'
     print(text)
-    # clipboard.set(text)
+    clipboard.set(text)
