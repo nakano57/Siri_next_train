@@ -11,3 +11,6 @@
 3. Pythonista 3.3 beta だと日本語の Siri でうまく動かないのでショートカットアプリと組み合わせていい感じにしてくだい。
 
 - ヒント：result はクリップボードに出力します
+
+- 答え
+  ![IMG_0667](https://user-images.githubusercontent.com/40960166/57585362-20bb6280-7522-11e9-8193-504d23c8f22f.PNG)
