@@ -12,5 +12,10 @@
 
 - ヒント：result はクリップボードに出力します
 
+##Todo
+
+- 祝日対応
+- GPS つかって最寄駅
+
 - 答え
   ![IMG_0667](https://user-images.githubusercontent.com/40960166/57585362-20bb6280-7522-11e9-8193-504d23c8f22f.PNG)
