@@ -159,7 +159,7 @@ class nexttrain:
 
 if __name__ == "__main__":
     df = nexttrain()
-    df.open('kasugano.tbl')
+    df.open('umeda.tbl')
 
     now = datetime.datetime.today()
     ntrain = df.get_time(now)
