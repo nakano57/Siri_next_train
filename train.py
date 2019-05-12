@@ -23,7 +23,7 @@ class nexttrain:
         self.__make_dict()
         self.__make_list()
 
-    def get_time(self, time):
+    def get_time(self, time, info=True):
         week = self.__dict_week_num[time.weekday()]
         writableh = time.hour
         shitatu = False
@@ -41,31 +41,51 @@ class nexttrain:
 
             if i == 0:
                 if time.minute < num or shitatu == True:
-                    return datetime.datetime(time.year, time.month, time.day, writableh, num)
+                    infotext = self.__return_info(
+                        info, self.__file[week][hour][i])
+                    if info:
+                        return datetime.datetime(time.year, time.month, time.day, writableh, num), infotext
+                    else:
+                        return datetime.datetime(time.year, time.month, time.day, writableh, num)
+
             else:
                 if i == (len(self.__file[week][hour])-1):
                     if time.minute >= num:
                         if hour != 19:
                             ret = int(self.__file[week][hour + 1][0][2:])
+                            infotext = self.__return_info(
+                                info, self.__file[week][hour + 1][0])
                             if writableh + 1 > 23:
                                 day = time.day + 1
-                                return datetime.datetime(time.year, time.month, day, (writableh + 1) % 24, ret)
+                                return datetime.datetime(time.year, time.month, day, (writableh + 1) % 24, ret), infotext
                             else:
-                                return datetime.datetime(time.year, time.month, time.day, writableh+1, ret)
+                                return datetime.datetime(time.year, time.month, time.day, writableh+1, ret), infotext
                         else:
                             week = ((time.weekday() + 1) % 7)
                             week = self.__dict_week_num[week]
                             ret = int(
                                 self.__file[week][0][0][2:])
+                            infotext = self.__return_info(
+                                info, self.__file[week][0][0])
                             day = time.day + 1
-                            return datetime.datetime(time.year, time.month, day, 5, ret)
+                            return datetime.datetime(time.year, time.month, day, 5, ret), infotext
 
                 before = int(self.__file[week][hour][i-1][2:])
 
                 if time.minute < num and time.minute >= before:
-                    return datetime.datetime(time.year, time.month, time.day, writableh, num)
+                    infotext = self.__return_info(
+                        info, self.__file[week][hour][i])
+                    return datetime.datetime(time.year, time.month, time.day, writableh, num), infotext
 
             # print(num)
+
+    def __return_info(self, v, list):
+        if v == True:
+            text = self.__dic_destination[list[1]
+                                          ] + self.__dic_destination[list[0]]
+            return text
+        else:
+            return None
 
     def __initfile(self):
         self.__file = self.__read
@@ -159,19 +179,20 @@ class nexttrain:
 
 if __name__ == "__main__":
     df = nexttrain()
-    df.open('umeda.tbl')
+    df.open('kasugano.tbl')
 
     now = datetime.datetime.today()
-    ntrain = df.get_time(now)
+    ntrain, trainfo = df.get_time(now)
     delta = ntrain - now
     delta = delta.total_seconds()
     if delta > 3600:
         h = str(ntrain.hour)
         m = str(ntrain.minute)
-        text = '次の電車は'+h+'時'+m+'分です'
+        text = '次の電車は'+h+'時'+m+'分'+trainfo+'です'
     elif delta > 60:
-        text = '次の電車は'+str(int(delta/60))+'分'+str(int(delta % 60))+'秒後です'
+        text = '次の電車は'+str(int(delta/60))+'分' + \
+            str(int(delta % 60))+'秒後'+trainfo+'です'
     else:
-        text = '次の電車は'+str(int(delta % 60))+'秒後です'
+        text = '次の電車は'+str(int(delta % 60))+'秒後'+trainfo+'です'
     print(text)
     clipboard.set(text)
